@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="asilo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6f40421-2735-4085-986b-b0e0674034a2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+  count(paciente.pa_id),
+  substring (paciente.pa_fechanacimiento from 6 for 8)
+FROM
+  public.paciente
+  group by (paciente.pa_fechanacimiento)]]>
+	</queryString>
+	<field name="count" class="java.lang.Long"/>
+	<field name="substring" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="82" y="2" width="188" height="20" uuid="57165dbf-ba28-4791-ab5f-fc8f2fb6012b"/>
+				<text><![CDATA[Cantidad de Ancianos por edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="2" width="100" height="20" uuid="ce0e89b3-ce97-4d0a-b3a8-34a4cef41abd"/>
+				<text><![CDATA[Fecha de Nacimiento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="69" y="33" width="378" height="1" uuid="bb99dd9a-9845-450a-b9b9-09c5390e83cc"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="121" y="2" width="100" height="20" uuid="5d149aa3-bc81-4992-9f07-64f18e8d8599"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="2" width="100" height="20" uuid="628363b5-3039-47f8-85a4-be2ca1322128"/>
+				<textFieldExpression><![CDATA[$F{substring}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="163" splitType="Stretch">
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="21" width="540" height="142" uuid="de0a9176-1b27-40fa-a9c5-457bb2f39ad1"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Cantidad de ancianos de acuerdo a la edad"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{substring}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</summary>
+</jasperReport>
